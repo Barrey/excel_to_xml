@@ -31,6 +31,7 @@
         <name>Creator Modification Notification</name>
         <template>Your submission was rejected by ${userName}, please modify and resubmit.</template>
         <template-language>freemarker</template-language>
+        <notification-type>email</notification-type>
         <notification-type>user-notification</notification-type>
         <execution-type>onAssignment</execution-type>
       </notification>
@@ -46,19 +47,22 @@
     </transitions>
   </task>
   <task>
-    <name>reviewni</name>
+    <name>review</name>
     <metadata><![CDATA[{"xy":[168,36]}]]></metadata>
     <actions>
       <notification>
         <name>Review Notification</name>
         <template>${userName} mengirimkan ${entryType} untuk diulas</template>
         <template-language>freemarker</template-language>
+        <notification-type>email</notification-type>
         <notification-type>user-notification</notification-type>
         <execution-type>onAssignment</execution-type>
       </notification>
       <notification>
         <name>Review Completion Notification</name>
+        <template>${userName} mengirimkan ${entryType} untuk diulas</template>
         <template-language>freemarker</template-language>
+        <notification-type>email</notification-type>
         <notification-type>user-notification</notification-type>
         <recipients>
           <user/>
@@ -350,6 +354,17 @@
         </role>
       </roles>
     </assignments>
+    <transitions>
+      <transition>
+        <name>approve</name>
+        <target>kro-publish</target>
+      </transition>
+      <transition>
+        <name>reject</name>
+        <target>update</target>
+        <default>false</default>
+      </transition>
+    </transitions>
   </task>
   <task>
     <name>kro-publish</name>
@@ -359,7 +374,9 @@
         <name>Publish Notification</name>
         <template>${userName} mengirimkan ${entryType} untuk diterbitkan</template>
         <template-language>freemarker</template-language>
+        <notification-type>user-notification</notification-type>
         <notification-type>email</notification-type>
+        <notification-type>user-notification</notification-type>
         <execution-type>onAssignment</execution-type>
       </notification>
     </actions>

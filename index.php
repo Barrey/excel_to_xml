@@ -65,6 +65,8 @@ foreach ($spreadsheet->getActiveSheet()->getRowIterator() as $row) {
 	          ->setAttribute('xsi:schemaLocation','urn:liferay.com:liferay-workflow_6.2.0 http://www.liferay.com/dtd/liferay-workflow-definition_6_2_0.xsd');
 
 	//add nodes
+	$notif2 = array('notification-type' => 'user-notification');
+	$transition2 = array('transition' => array('name' => 'reject', 'target' => 'update', 'default' => 'false'));
 
 	$component = [
 					'name' => $name,
@@ -106,7 +108,7 @@ foreach ($spreadsheet->getActiveSheet()->getRowIterator() as $row) {
 											'template' => 'Your submission was rejected by ${userName}, please modify and resubmit.',
 											'template-language' => 'freemarker',
 											'notification-type' => 'email',
-											'notification-type' => 'user-notification',
+											$notif2,
 											'execution-type' => 'onAssignment'
 										]
 								],
@@ -134,9 +136,10 @@ foreach ($spreadsheet->getActiveSheet()->getRowIterator() as $row) {
 	$notification = array('notification' => 
 						[
 							'name' => 'Review Completion Notification',
+							'template' => '${userName} mengirimkan ${entryType} untuk diulas',
 							'template-language' => 'freemarker',
 							'notification-type' => 'email',
-							'notification-type' => 'user-notification',
+							$notif2,
 							'recipients' => 
 								[
 									'user'
@@ -148,7 +151,7 @@ foreach ($spreadsheet->getActiveSheet()->getRowIterator() as $row) {
 	$component2 = 	[
 						'task' => 
 							[
-								'name' => 'reviewni',
+								'name' => 'review',
 								'metadata' => '<![CDATA[{"xy":[168,36]}]]>',
 								'actions' => 
 									[
@@ -158,7 +161,7 @@ foreach ($spreadsheet->getActiveSheet()->getRowIterator() as $row) {
 												'template' => '${userName} mengirimkan ${entryType} untuk diulas',
 												'template-language' => 'freemarker',
 												'notification-type' => 'email',
-												'notification-type' => 'user-notification',
+												$notif2,
 												'execution-type' => 'onAssignment'
 											],
 										$notification
@@ -166,6 +169,15 @@ foreach ($spreadsheet->getActiveSheet()->getRowIterator() as $row) {
 								'assignments' => 
 									[
 										'roles'
+									],
+								'transitions' => 
+									[
+										'transition' => 
+											[
+												'name' => 'approve',
+												'target' => 'kro-publish',
+											],
+										$transition2
 									]
 							]
 					];
@@ -184,8 +196,9 @@ foreach ($spreadsheet->getActiveSheet()->getRowIterator() as $row) {
 												'name' => 'Publish Notification',
 												'template' => '${userName} mengirimkan ${entryType} untuk diterbitkan',
 												'template-language' => 'freemarker',
-												'notification-type' => 'user-notification',
+												$notif2,
 												'notification-type' => 'email',
+												$notif2,
 												'execution-type' => 'onAssignment'
 											],
 									],
