@@ -1,0 +1,15 @@
+{
+    "name": "user/xml_extract",
+    "description": "xml extractor",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Ridwan Bari",
+            "email": "ajibari@gmail.com"
+        }
+    ],
+    "require": {
+        "servo/fluidxml": "^1.21",
+        "phpoffice/phpspreadsheet": "dev-master"
+    }
+}

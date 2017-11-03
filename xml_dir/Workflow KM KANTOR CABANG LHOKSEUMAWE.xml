@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workflow-definition xmlns="urn:liferay.com:liferay-workflow_6.2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:liferay.com:liferay-workflow_6.2.0 http://www.liferay.com/dtd/liferay-workflow-definition_6_2_0.xsd">
+  <name>Workflow KM KANTOR CABANG LHOKSEUMAWE</name>
+  <description>KC assign to SME and then approve article or document.</description>
+  <version>2</version>
+  <state>
+    <name>created</name>
+    <metadata><![CDATA[{"xy":[36,51]}]]></metadata>
+    <initial>true</initial>
+    <transitions>
+      <transition>
+        <name>review</name>
+        <target>review</target>
+      </transition>
+    </transitions>
+  </state>
+  <task>
+    <name>update</name>
+    <metadata><![CDATA[{"transitions":{"resubmit":{"bendpoints":[[303,140]]}},"xy":[328,199]}]]></metadata>
+    <actions>
+      <action>
+        <name>reject</name>
+        <script><![CDATA[import com.liferay.portal.kernel.workflow.WorkflowStatusManagerUtil;		import com.liferay.portal.kernel.workflow.WorkflowConstants;
+											WorkflowStatusManagerUtil.updateStatus(WorkflowConstants.getLabelStatus("denied"), workflowContext);
+											WorkflowStatusManagerUtil.updateStatus(WorkflowConstants.getLabelStatus("pending"), workflowContext);
+											]]></script>
+        <script-language>groovy</script-language>
+        <execution-type>onAssignment</execution-type>
+      </action>
+      <notification>
+        <name>Creator Modification Notification</name>
+        <template>Your submission was rejected by ${userName}, please modify and resubmit.</template>
+        <template-language>freemarker</template-language>
+        <notification-type>user-notification</notification-type>
+        <execution-type>onAssignment</execution-type>
+      </notification>
+    </actions>
+    <assignments>
+      <user/>
+    </assignments>
+    <transitions>
+      <transition>
+        <name>resubmit</name>
+        <target>review</target>
+      </transition>
+    </transitions>
+  </task>
+  <task>
+    <name>reviewni</name>
+    <metadata><![CDATA[{"xy":[168,36]}]]></metadata>
+    <actions>
+      <notification>
+        <name>Review Notification</name>
+        <template>${userName} mengirimkan ${entryType} untuk diulas</template>
+        <template-language>freemarker</template-language>
+        <notification-type>user-notification</notification-type>
+        <execution-type>onAssignment</execution-type>
+      </notification>
+      <notification>
+        <name>Review Completion Notification</name>
+        <template-language>freemarker</template-language>
+        <notification-type>user-notification</notification-type>
+        <recipients>
+          <user/>
+        </recipients>
+        <execution-type>onExit</execution-type>
+      </notification>
+    </actions>
+    <assignments>
+      <roles>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|SEKRETARIAT PERUSAHAAN|SEKRETARIS PERUSAHAAN</name>
+        </role>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|DIVISI SUMBER DAYA MANUSIA|MANAJER UTAMA DIV. SUMBER DAYA MANUSIA</name>
+        </role>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|SATUAN PENGAWASAN INTERNAL|KEPALA SATUAN PENGAWASAN INTERNAL</name>
+        </role>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|DIVISI LAYANAN DAN MANFAAT|MANAJER UTAMA DIV. LAYANAN DAN MANFAAT</name>
+        </role>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|DIVISI KEPESERTAAN|MANAJER UTAMA DIV. KEPESERTAAN</name>
+        </role>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|DIVISI AKTUARIA|MANAJER UTAMA DIV. AKTUARIA</name>
+        </role>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|DIVISI INVESTASI PASAR MODAL &amp; PSR UANG|MANAJER UTAMA DIV INV PS MODAL &amp; PS UANG</name>
+        </role>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|DIVISI ANALIS INVESTASI|MANAJER UTAMA DIV. ANALIS INVESTASI</name>
+        </role>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|DIVISI BISNIS STRATEGIS &amp; INV LANGSUNG|MANAJER UTAMA DIV. BISNIS STR &amp; INV LNGS</name>
+        </role>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|DIVISI LOGISTIK DAN PEMELIHARAAN|MANAJER UTAMA DIV. LOGISTIK&amp;PEMELIHARAAN</name>
+        </role>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|DESK HUKUM|KEPALA DESK HUKUM</name>
+        </role>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|DESK LAYANAN KANTOR CABANG|KEPALA DESK LAYANAN KANTOR KANTOR CABANG</name>
+        </role>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|DIVISI ANGGARAN &amp; AKUNTANSI|MANAJER UTAMA DIV. ANGGARAN &amp; AKUNTANSI</name>
+        </role>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|DIVISI PERBENDAHARAAN|MANAJER UTAMA DIV. PERBENDAHARAAN</name>
+        </role>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|DIVISI  PERENCANAAN&amp;PENGEMBANGAN BISNIS|MANAJER UTAMA DIV.PERENCANAAN&amp;PENGEM BIS</name>
+        </role>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|DIVISI TEKNOLOGI INFORMASI|MANAJER UTAMA DIV. TEKNOLOGI INFORMASI</name>
+        </role>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|KANTOR CABANG CABANG UTAMA JAKARTA|KEPALA KANTOR CABANG UTAMA JAKARTA</name>
+        </role>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|KANTOR CABANG BANDAR LAMPUNG|KEPALA KANTOR CABANG BANDAR LAMPUNG</name>
+        </role>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|KANTOR CABANG BENGKULU|KEPALA KANTOR CABANG BENGKULU</name>
+        </role>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|KANTOR CABANG PALEMBANG|KEPALA KANTOR CABANG PALEMBANG</name>
+        </role>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|KANTOR CABANG PALANGKARAYA|KEPALA KANTOR CABANG PALANGKARAYA</name>
+        </role>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|KANTOR CABANG PONTIANAK|KEPALA KANTOR CABANG PONTIANAK</name>
+        </role>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|KANTOR CABANG PANGKAL PINANG|KEPALA KANTOR CABANG PANGKAL PINANG</name>
+        </role>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|KANTOR CABANG SERANG|KEPALA KANTOR CABANG SERANG</name>
+        </role>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|KANTOR CABANG BANJARMASIN|KEPALA KANTOR CABANG BANJARMASIN</name>
+        </role>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|KANTOR CABANG SAMARINDA|KEPALA KANTOR CABANG SAMARINDA</name>
+        </role>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|KANTOR CABANG TANGERANG|KEPALA KANTOR CABANG TANGERANG</name>
+        </role>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|KANTOR CABANG TARAKAN|KEPALA KANTOR CABANG TARAKAN</name>
+        </role>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|KANTOR CABANG JAKARTA SELATAN|KEPALA KANTOR CABANG JAKARTA SELATAN</name>
+        </role>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|KANTOR CABANG LUBUK LINGGAU|KEPALA KANTOR CABANG LUBUK LINGGAU</name>
+        </role>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|KANTOR CABANG CABANG UTAMA MEDAN|KEPALA KANTOR CABANG UTAMA MEDAN</name>
+        </role>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|KANTOR CABANG BANDA ACEH|KEPALA KANTOR CABANG BANDA ACEH</name>
+        </role>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|KANTOR CABANG PEMATANG SIANTAR|KEPALA KANTOR CABANG PEMATANG SIANTAR</name>
+        </role>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|KANTOR CABANG PADANG|KEPALA KANTOR CABANG PADANG</name>
+        </role>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|KANTOR CABANG PEKANBARU|KEPALA KANTOR CABANG PEKANBARU</name>
+        </role>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|KANTOR CABANG BUKITTINGGI|KEPALA KANTOR CABANG BUKITTINGGI</name>
+        </role>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|KANTOR CABANG JAMBI|KEPALA KANTOR CABANG JAMBI</name>
+        </role>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|KANTOR CABANG TANJUNG PINANG|KEPALA KANTOR CABANG TANJUNG PINANG</name>
+        </role>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|KANTOR CABANG LHOKSEUMAWE|KEPALA KANTOR CABANG LHOKSEUMAWE</name>
+        </role>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|KANTOR CABANG KEPULAUAN NIAS|KEPALA KANTOR CABANG KEPULAUAN NIAS</name>
+        </role>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|KANTOR CABANG CABANG UTAMA BANDUNG|KEPALA KANTOR CABANG UTAMA BANDUNG</name>
+        </role>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|KANTOR CABANG BOGOR|KEPALA KANTOR CABANG BOGOR</name>
+        </role>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|KANTOR CABANG TASIKMALAYA|KEPALA KANTOR CABANG TASIKMALAYA</name>
+        </role>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|KANTOR CABANG CIREBON|KEPALA KANTOR CABANG CIREBON</name>
+        </role>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|KANTOR CABANG BEKASI|KEPALA KANTOR CABANG BEKASI</name>
+        </role>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|KANTOR CABANG DEPOK|KEPALA KANTOR CABANG DEPOK</name>
+        </role>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|KANTOR CABANG CABANG UTAMA SEMARANG|KEPALA KANTOR CABANG UTAMA SEMARANG</name>
+        </role>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|KANTOR CABANG PURWOKERTO|KEPALA KANTOR CABANG PURWOKERTO</name>
+        </role>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|KANTOR CABANG SOLO|KEPALA KANTOR CABANG SOLO</name>
+        </role>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|KANTOR CABANG YOGYAKARTA|KEPALA KANTOR CABANG YOGYAKARTA</name>
+        </role>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|KANTOR CABANG PEKALONGAN|KEPALA KANTOR CABANG PEKALONGAN</name>
+        </role>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|KANTOR CABANG CABANG UTAMA SURABAYA|KEPALA KANTOR CABANG UTAMA SURABAYA</name>
+        </role>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|KANTOR CABANG MALANG|KEPALA KANTOR CABANG MALANG</name>
+        </role>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|KANTOR CABANG MADIUN|KEPALA KANTOR CABANG MADIUN</name>
+        </role>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|KANTOR CABANG JEMBER|KEPALA KANTOR CABANG JEMBER</name>
+        </role>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|KANTOR CABANG DENPASAR|KEPALA KANTOR CABANG DENPASAR</name>
+        </role>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|KANTOR CABANG KUPANG|KEPALA KANTOR CABANG KUPANG</name>
+        </role>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|KANTOR CABANG MATARAM|KEPALA KANTOR CABANG MATARAM</name>
+        </role>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|KANTOR CABANG ENDE|KEPALA KANTOR CABANG ENDE</name>
+        </role>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|KANTOR CABANG CABANG UTAMA MAKASSAR|KEPALA KANTOR CABANG UTAMA MAKASSAR</name>
+        </role>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|KANTOR CABANG MANADO|KEPALA KANTOR CABANG MANADO</name>
+        </role>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|KANTOR CABANG PALU|KEPALA KANTOR CABANG PALU</name>
+        </role>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|KANTOR CABANG KENDARI|KEPALA KANTOR CABANG KENDARI</name>
+        </role>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|KANTOR CABANG AMBON|KEPALA KANTOR CABANG AMBON</name>
+        </role>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|KANTOR CABANG JAYAPURA|KEPALA KANTOR CABANG JAYAPURA</name>
+        </role>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|KANTOR CABANG GORONTALO|KEPALA KANTOR CABANG GORONTALO</name>
+        </role>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|KANTOR CABANG MAMUJU|KEPALA KANTOR CABANG MAMUJU</name>
+        </role>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|KANTOR CABANG TERNATE|KEPALA KANTOR CABANG TERNATE</name>
+        </role>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|KANTOR CABANG MANOKWARI|KEPALA KANTOR CABANG MANOKWARI</name>
+        </role>
+        <role>
+          <role-type>regular</role-type>
+          <name>KC|KANTOR CABANG PALOPO|KEPALA KANTOR CABANG PALOPO</name>
+        </role>
+      </roles>
+    </assignments>
+  </task>
+  <task>
+    <name>kro-publish</name>
+    <metadata><![CDATA[{"xy":[340,270]}]]></metadata>
+    <actions>
+      <notification>
+        <name>Publish Notification</name>
+        <template>${userName} mengirimkan ${entryType} untuk diterbitkan</template>
+        <template-language>freemarker</template-language>
+        <notification-type>email</notification-type>
+        <execution-type>onAssignment</execution-type>
+      </notification>
+    </actions>
+    <assignments>
+      <roles>
+        <role>
+          <role-type>regular</role-type>
+          <name>KRO</name>
+        </role>
+      </roles>
+    </assignments>
+    <transitions>
+      <transition>
+        <name>published</name>
+        <target>approved</target>
+      </transition>
+    </transitions>
+  </task>
+  <state>
+    <name>approved</name>
+    <metadata><![CDATA[{"xy":[380,51]}]]></metadata>
+    <actions>
+      <action>
+        <name>approve</name>
+        <script><![CDATA[
+							import com.liferay.portal.kernel.workflow.WorkflowStatusManagerUtil;
+							import com.liferay.portal.kernel.workflow.WorkflowConstants;
+							WorkflowStatusManagerUtil.updateStatus(WorkflowConstants.getLabelStatus("approved"), workflowContext);
+						]]></script>
+        <script-language>groovy</script-language>
+        <execution-type>onEntry</execution-type>
+      </action>
+    </actions>
+  </state>
+</workflow-definition>
